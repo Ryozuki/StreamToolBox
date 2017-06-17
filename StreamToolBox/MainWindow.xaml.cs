@@ -35,6 +35,9 @@ namespace StreamToolBox
 
             creditLabel.Content = ((string)creditLabel.Content).Replace("%v", VERSION);
 
+            textBoxDate.ToolTip = "%y = year, %M = month, %d = day\n%h = hours %m = minutes, %s = seconds, %L = miliseconds";
+            textBoxTime.ToolTip = "%h = hours %m = minutes, %s = seconds, %L = miliseconds";
+
             if (String.IsNullOrWhiteSpace(Properties.Settings.Default.dateformat))
                 Properties.Settings.Default.dateformat = textBoxDate.Text;
             else
