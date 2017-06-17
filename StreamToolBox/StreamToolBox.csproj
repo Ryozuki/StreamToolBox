@@ -34,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="byMarc.Net2.WinControls.FileSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5ee42ada736ab19b, processorArchitecture=MSIL">
-      <HintPath>..\packages\byMarc.Net2.WinControls.FileSystem.2017.304.0\lib\net20\byMarc.Net2.WinControls.FileSystem.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -89,7 +86,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
