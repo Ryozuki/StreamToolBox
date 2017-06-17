@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Timers;
 using System.IO;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace StreamToolBox
 {
@@ -29,7 +31,7 @@ namespace StreamToolBox
         {
             InitializeComponent();
 
-            const string VERSION = "0.0.1";
+            string VERSION = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
 
             creditLabel.Content = ((string)creditLabel.Content).Replace("%v", VERSION);
 
@@ -48,6 +50,7 @@ namespace StreamToolBox
             aTimer.Interval = 1000;
             aTimer.Enabled = true;
             Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
 
         private void ATimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -72,6 +75,7 @@ namespace StreamToolBox
             Properties.Settings.Default.timeformat = textBoxTime.Text;
             Properties.Settings.Default.dateformat = textBoxDate.Text;
             Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
 
         private void WriteFiles()
