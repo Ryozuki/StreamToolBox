@@ -17,6 +17,7 @@ using System.Timers;
 using System.IO;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace StreamToolBox
 {
@@ -25,11 +26,20 @@ namespace StreamToolBox
     /// </summary>
     public partial class MainWindow : Window
     {
-        public System.Timers.Timer aTimer = new System.Timers.Timer();
+        System.Timers.Timer SecondTimer = new System.Timers.Timer();
+
+        bool CountDownStarted = false;
+        bool CountUpStarted = false;
+
+        TimeSpan CountDownSpan;
+        TimeSpan CountUpSpan;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            CountDownSpan = TimeSpan.Zero;
+            CountUpSpan = TimeSpan.Zero;
 
             string VERSION = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
 
@@ -49,9 +59,9 @@ namespace StreamToolBox
 
             textBoxPath.Text = Properties.Settings.Default.filepath;
 
-            aTimer.Elapsed += ATimer_Elapsed;
-            aTimer.Interval = 1000;
-            aTimer.Enabled = true;
+            SecondTimer.Elapsed += ATimer_Elapsed;
+            SecondTimer.Interval = 1000;
+            SecondTimer.Enabled = true;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }
@@ -70,6 +80,9 @@ namespace StreamToolBox
             sf.FileName = dummyFileName;
             sf.ShowDialog();
             textBoxPath.Text = String.IsNullOrWhiteSpace(sf.FileName) ? "" : System.IO.Path.GetDirectoryName(sf.FileName);
+            Properties.Settings.Default.filepath = textBoxPath.Text;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
@@ -87,6 +100,8 @@ namespace StreamToolBox
             {
                 string timepath = System.IO.Path.Combine(Properties.Settings.Default.filepath, "time.txt");
                 string datepath = System.IO.Path.Combine(Properties.Settings.Default.filepath, "date.txt");
+                string countdownpath = System.IO.Path.Combine(Properties.Settings.Default.filepath, "countdown.txt");
+                string countuppath = System.IO.Path.Combine(Properties.Settings.Default.filepath, "countup.txt");
 
                 string timeformat = textBoxTime.Text;
                 string dateformat = textBoxDate.Text;
@@ -114,8 +129,84 @@ namespace StreamToolBox
 
                     File.WriteAllText(timepath, timeformat);
                     File.WriteAllText(datepath, dateformat);
+
+                    if (CountDownSpan.TotalSeconds != 0 && CountDownStarted)
+                    {
+                        File.WriteAllText(countdownpath, string.Empty);
+                        CountDownSpan = TimeSpan.FromSeconds(CountDownSpan.TotalSeconds - 1);
+
+                        File.WriteAllText(countdownpath, String.Format("{0:00}:{1:00}:{2:00}", (int)CountDownSpan.TotalHours, 
+                            CountDownSpan.Minutes, CountDownSpan.Seconds));
+
+                        countdownBox.Text = String.Format("{0:00}:{1:00}:{2:00}", (int)CountDownSpan.TotalHours, 
+                            CountDownSpan.Minutes, CountDownSpan.Seconds);
+                    }
+                    else
+                    {
+                        CountDownSpan = TimeSpan.Zero;
+                        countDownButton.Content = "Start";
+                    }
+
+                    if(CountUpStarted)
+                    {
+                        CountUpSpan = TimeSpan.FromSeconds(CountUpSpan.TotalSeconds + 1);
+                        File.WriteAllText(countuppath, string.Empty);
+
+                        File.WriteAllText(countuppath, String.Format("{0:00}:{1:00}:{2:00}", (int)CountUpSpan.TotalHours, 
+                            CountUpSpan.Minutes, CountUpSpan.Seconds));
+
+                        countupBox.Text = String.Format("{0:00}:{1:00}:{2:00}", (int)CountUpSpan.TotalHours, 
+                            CountUpSpan.Minutes, CountUpSpan.Seconds);
+                    }
                 }
             });
+        }
+
+        private void SetCountText(ref System.Windows.Controls.TextBox textbox, ref TimeSpan time)
+        {
+            const string pattern = @"^([0-9]+):([0-5][0-9]):([0-5][0-9])$";
+            Match match = Regex.Match(textbox.Text, pattern);
+
+            double t = (double.Parse(match.Groups[1].Value) * 60 * 60) // Convert hours to seconds
+                    + (double.Parse(match.Groups[2].Value) * 60) // Convert minutes to seconds
+                    + double.Parse(match.Groups[3].Value);
+
+            time = TimeSpan.FromSeconds(t);
+        }
+
+        private void countDownButton_Click(object sender, RoutedEventArgs e)
+        {
+            CountDownStarted = !CountDownStarted;
+
+            if(CountDownStarted)
+            {
+                countDownButton.Content = "Stop";
+                SetCountText(ref countdownBox, ref CountDownSpan);
+                if(CountDownSpan.TotalSeconds == 0)
+                {
+                    CountDownStarted = false;
+                    countDownButton.Content = "Start";
+                }
+            }
+            else
+            {
+                countDownButton.Content = "Start";
+            }
+        }
+
+        private void countupButton_Click(object sender, RoutedEventArgs e)
+        {
+            CountUpStarted = !CountUpStarted;
+
+            if (CountUpStarted)
+            {
+                countupButton.Content = "Stop";
+                SetCountText(ref countupBox, ref CountUpSpan);
+            }
+            else
+            {
+                countupButton.Content = "Start";
+            }
         }
     }
 }

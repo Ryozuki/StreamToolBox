@@ -19,6 +19,12 @@
                     <Label Content="Current date format (date.txt)" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top" Width="246"/>
                     <TextBox x:Name="textBoxDate" HorizontalAlignment="Left" Height="23" Margin="10,144,0,0" TextWrapping="Wrap" Text=" %d/%M/%y %h:%m:%s.%L" VerticalAlignment="Top" Width="246"/>
                     <Label x:Name="creditLabel" Content="StreamToolBox v%v (c) 2017 Ryozuki (teeland.ovh)" HorizontalAlignment="Left" Margin="10,0,0,10" Width="488" Height="35" VerticalAlignment="Bottom" FontSize="16"/>
+                    <Label Content="Countdown" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="246"/>
+                    <TextBox x:Name="countdownBox" Height="23" Margin="0,36,90,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top" HorizontalAlignment="Right" Width="166"/>
+                    <Button x:Name="countDownButton" Content="Start" Margin="0,36,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="75" Click="countDownButton_Click"/>
+                    <Label Content="Countup" HorizontalAlignment="Left" Margin="350,64,0,0" VerticalAlignment="Top" Width="246"/>
+                    <TextBox x:Name="countupBox" Height="23" Margin="0,90,90,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top" HorizontalAlignment="Right" Width="166"/>
+                    <Button x:Name="countupButton" Content="Start" Margin="0,90,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="75" Click="countupButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Stream" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54">
