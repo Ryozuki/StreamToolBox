@@ -29,6 +29,10 @@ namespace StreamToolBox
         {
             InitializeComponent();
 
+            const string VERSION = "0.0.1";
+
+            creditLabel.Content = ((string)creditLabel.Content).Replace("%v", VERSION);
+
             if (String.IsNullOrWhiteSpace(Properties.Settings.Default.dateformat))
                 Properties.Settings.Default.dateformat = textBoxDate.Text;
             else
@@ -43,6 +47,7 @@ namespace StreamToolBox
             aTimer.Elapsed += ATimer_Elapsed;
             aTimer.Interval = 1000;
             aTimer.Enabled = true;
+            Properties.Settings.Default.Save();
         }
 
         private void ATimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -66,6 +71,7 @@ namespace StreamToolBox
             Properties.Settings.Default.filepath = textBoxPath.Text;
             Properties.Settings.Default.timeformat = textBoxTime.Text;
             Properties.Settings.Default.dateformat = textBoxDate.Text;
+            Properties.Settings.Default.Save();
         }
 
         private void WriteFiles()

@@ -10,14 +10,20 @@
         <TabControl RenderTransformOrigin="0.5,0.5" Margin="10">
             <TabItem Header="Files" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54">
                 <Grid Background="#FFE5E5E5">
-                    <Label Content="Current time format (time.txt)" HorizontalAlignment="Left" Margin="10,83,0,0" VerticalAlignment="Top" Width="246"/>
-                    <TextBox x:Name="textBoxTime" HorizontalAlignment="Left" Height="23" Margin="10,109,0,0" TextWrapping="Wrap" Text="Time: %h:%m:%s.%L" VerticalAlignment="Top" Width="246"/>
+                    <Label Content="Current time format (time.txt)" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top" Width="246"/>
+                    <TextBox x:Name="textBoxTime" HorizontalAlignment="Left" Height="23" Margin="10,90,0,0" TextWrapping="Wrap" Text="Time: %h:%m:%s.%L" VerticalAlignment="Top" Width="246"/>
                     <Button x:Name="saveButton" Content="Save" Margin="0,0,10,10" FontSize="16" HorizontalAlignment="Right" Width="93" Height="35" VerticalAlignment="Bottom" Click="saveButton_Click"/>
-                    <TextBox x:Name="textBoxPath" HorizontalAlignment="Left" Height="23" Margin="10,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="246"/>
-                    <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="261,55,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="searchButton_Click"/>
-                    <Label Content="Folder to save files" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" Width="246"/>
-                    <Label Content="Current date format (date.txt)" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="246"/>
-                    <TextBox x:Name="textBoxDate" HorizontalAlignment="Left" Height="23" Margin="10,163,0,0" TextWrapping="Wrap" Text=" %d/%M/%y %h:%m:%s.%L" VerticalAlignment="Top" Width="246"/>
+                    <TextBox x:Name="textBoxPath" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="246"/>
+                    <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="261,36,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="searchButton_Click"/>
+                    <Label Content="Folder to save files" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="246"/>
+                    <Label Content="Current date format (date.txt)" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top" Width="246"/>
+                    <TextBox x:Name="textBoxDate" HorizontalAlignment="Left" Height="23" Margin="10,144,0,0" TextWrapping="Wrap" Text=" %d/%M/%y %h:%m:%s.%L" VerticalAlignment="Top" Width="246"/>
+                    <Label x:Name="creditLabel" Content="StreamToolBox v%v (c) 2017 Ryozuki (teeland.ovh)" HorizontalAlignment="Left" Margin="10,0,0,10" Width="488" Height="35" VerticalAlignment="Bottom" FontSize="16"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Stream" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="WORK IN PROGRESS" Margin="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="36" FontWeight="Bold" FontStyle="Italic"/>
                 </Grid>
             </TabItem>
         </TabControl>
